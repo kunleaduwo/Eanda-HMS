@@ -4,7 +4,6 @@ A Hospital Management System
 <hr>
 <h2>Project Overview</h2>
   <section>
-    <h2>Overview</h2>
     <p>
       A scalable web-based Hospital Management System built with Django and Django REST Framework to streamline healthcare operations,
       including patient management, appointments, medical records, and billing.
@@ -36,17 +35,7 @@ A Hospital Management System
       <li>Secure handling of sensitive medical data</li>
       <li>Backend structured for real-world extensibility</li>
     </ul>
-  </section>
-
-  <section>
-    <h2>Tech Stack</h2>
-    <ul>
-      <li>Python / Django / DRF</li>
-      <li>PostgreSQL</li>
-      <li>JavaScript, HTML, CSS</li>
-    </ul>
-  </section>
-
+  
   <section>
     <h2>Future Improvements</h2>
     <ul>
