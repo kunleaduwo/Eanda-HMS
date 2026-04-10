@@ -56,36 +56,6 @@ A Hospital Management System
       <li>Multi-tenant hospital support</li>
     </ul>
   </section>
-<p>
-This project is a web-based Hospital Management System designed to improve the efficiency and 
-organization of healthcare operations. The system streamlines key hospital processes such as 
-patient management, appointment scheduling, medical records handling, and billing, all within 
-a centralized digital platform.
-</p>
-
-<p>
-The application enables healthcare providers to manage patient information securely, track 
-medical histories, and coordinate appointments seamlessly. It also supports administrative 
-tasks such as staff management, report generation, and financial record-keeping, reducing 
-manual workload and minimizing errors.
-</p>
-
-<p><strong>Key features of the system include:</strong></p>
-
-<ul>
-  <li>Patient registration and record management</li>
-  <li>Appointment scheduling and tracking</li>
-  <li>Electronic medical records (EMR) management</li>
-  <li>Billing and payment processing</li>
-  <li>Staff and department management</li>
-  <li>Automated report generation</li>
-  <li>Secure and organized data storage</li>
-</ul>
-
-<p>
-By digitizing hospital workflows, the system enhances productivity, improves data accuracy, 
-and ensures better patient care and service delivery.
-</p>
 
 <h2>Technologies Used</h2>
 
