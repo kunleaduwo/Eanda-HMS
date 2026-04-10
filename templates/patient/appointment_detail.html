@@ -1,0 +1,220 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+          {% include 'patient/sidebar.html' %}
+            <div class="col-lg-9 col-md-8 col-12">
+                <h4 class="mb-0 mb-4 fw-bold">Appointment Detail </h4>
+              
+                <div class="card mb-4">
+                    <div class="shadow border p-3 mb-4 rounded-4">
+                        <p>
+                            <a>
+                                <p><span class="fw-semibold text-dark">Appointment ID:</span> #{{appointment.appointment_id}}</p>
+                                <p><span class="fw-semibold text-dark">Service:</span> {{appointment.service.name}}</p>
+                                <p><span class="fw-semibold text-dark">Doctor:</span> {{appointment.doctor.full_name}}</p>
+                                <p><span class="fw-semibold text-dark">Issue:</span> {{appointment.issues}}</p>
+                                <p><span class="fw-semibold text-dark">Symptoms:</span> {{appointment.symptoms}}</p>
+                                <p><span class="fw-semibold text-dark">Status:</span> {{appointment.status}}</p>
+                                <p><span class="fw-semibold text-dark">Date:</span> {{appointment.appointment_date}}</p>
+                                <p>
+                                    <span class="fw-semibold text-dark">Action:</span>
+
+                                    {% if appointment.status == "Scheduled" %}
+                                    <a href="{% url 'doctor:cancel_appointment' appointment.appointment_id %}" class="btn btn-outline-danger btn-sm" style="color: darkred";>Cancel Appointment <i class="fas fa-trash ms-2"></i></a>
+                                    <a href="{% url 'doctor:complete_appointment' appointment.appointment_id %}" class="btn btn-outline-success btn-sm" style="color: darkred";>Complete Appointment <i class="fas fa-check-circle ms-2"></i></a>
+                                    {% endif %} {% if appointment.status == "Cancelled" %}
+                                    <a href="{% url 'doctor:activate_appointment' appointment.appointment_id %}" class="btn btn-success btn-sm" style="color: darkred";>Activate Appointment <i class="fas fa-check-circle ms-2"></i></a>
+                                    {% endif %} {% if appointment.status == "Completed" %}
+                                    <a href="{% url 'doctor:activate_appointment' appointment.appointment_id %}" class="btn btn-success btn-sm" style="color: darkred";>Completed <i class="fas fa-check-circle ms-2"></i></a>
+                                    {% endif %}
+                                </p>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div id="medical-report">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseMedicalReport" aria-expanded="true" aria-controls="collapseMedicalReport">
+          Medical Reports
+        </a>
+        <button type="button" class="btn btn-primary pull-right" data-bs-toggle="collapse" data-bs-target="#collapseMedicalReport" aria-expanded="false" aria-controls="collapseMedicalReport">Add Medical Report</button>
+
+      </h4>
+    </div>
+    <div id="collapseMedicalReport" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+         <div class="border p-3 mb-4 rounded-4">
+            <form action="{% url 'doctor:add_medical_report' appointment.appointment_id %}" method="POST">
+                {% csrf_token %}
+                <input type="text" class="form-control mb-3" name="diagnosis" placeholder="Diagnosis" />
+                <br>
+                <input type="text" class="form-control mb-3" name="treatment" placeholder="Treatment" />
+                <br>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </form>
+        </div>
+         <br>
+        <div class="panel panel-default">
+          {% comment %} <div class="panel-heading">Panel heading without title</div> {% endcomment %}
+          <div class="panel-body">
+           {% for m in medical_records %}
+            <div class="shadow p-3 rounded-4 mb-3">
+                <p><span class="fw-semibold text-dark">Diagnosis:</span> {{m.diagnosis}}</p>
+                <p><span class="fw-semibold text-dark">Treatment:</span> {{m.treatment}}</p>
+                <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedicalRecord{{m.id}}" aria-expanded="false" aria-controls="collapseMedicalRecord{{m.id}}">Edit <i class="fas fa-edit ms-2"></i></button>
+                <div class="collapse mt-3" id="collapseMedicalRecord{{m.id}}">
+                    <div class="border p-3 rounded-4">
+                        <form action="{% url 'doctor:edit_medical_report' appointment.appointment_id m.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" class="form-control mb-3" value="{{m.diagnosis}}" name="diagnosis" placeholder="Diagnosis" />
+                            <input type="text" class="form-control mb-3" value="{{m.treatment}}" name="treatment" placeholder="Treatment" />
+                            <button type="submit" class="btn btn-primary">Save Changes <i class="fas fa-save ms-2"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+             <hr>
+            {% empty %}
+            <p>No medical records</p>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseLabTest" aria-expanded="false" aria-controls="collapseLabTest">
+          Labs Tests Reports
+        </a>
+        <button type="button" class="btn btn-primary pull-right" data-bs-toggle="collapse" data-bs-target="#collapseLabTest" aria-expanded="false" aria-controls="collapseLabTest">Add Lab Test</button>
+      </h4>
+      
+    </div>
+    <div id="collapseLabTest" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+       <div class="border p-3 mb-4 rounded-4">
+        <form action="{% url 'doctor:add_lab_test' appointment.appointment_id %}" method="POST">
+            {% csrf_token %}
+            <input type="text" class="form-control mb-3" name="test_name" placeholder="Test name" />
+            <br>
+            <input type="text" class="form-control mb-3" name="description" placeholder="Description" />
+            <br>
+            <textarea name="result" class="form-control" id="" placeholder="Lab Result"></textarea>
+            <br>
+            <button type="submit" class="btn btn-primary btn-sm">Save <i class="fas fa-save ms-2"></i></button>
+        </form>
+        <br>
+      </div>
+
+      <div class="panel panel-default">
+          {% comment %} <div class="panel-heading">Panel heading without title</div> {% endcomment %}
+          <div class="panel-body">
+          {% for l in lab_tests %}
+            <div class="shadow p-3 rounded-4 mb-3">
+                <p><span class="fw-semibold text-dark">Test Name:</span> {{l.test_name}}</p>
+                <p><span class="fw-semibold text-dark">Description:</span> {{l.description}}</p>
+                <p><span class="fw-semibold text-dark">Result:</span> {{l.result|default:"Not added yet"}}</p>
+                <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLabTest{{l.id}}" aria-expanded="false" aria-controls="collapseLabTest{{l.id}}">Edit <i class="fas fa-edit ms-2"></i></button>
+                
+                <div class="collapse mt-3" id="collapseLabTest{{l.id}}">
+                    <div class="border p-3 rounded-4">
+                        <form action="{% url 'doctor:edit_lab_test' appointment.appointment_id l.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" class="form-control mb-3" value="{{l.test_name}}" name="test_name" placeholder="Test name" />
+                          
+                            <input type="text" class="form-control mb-3" value="{{l.description}}" name="description" placeholder="Description" />
+                           
+                            <textarea name="result" class="form-control" id="" placeholder="Lab Result">{{ l.result }}</textarea>
+                            
+                            <button type="submit" class="btn btn-primary btn-sm">Save Changes <i class="fas fa-save ms-2"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+             <hr>
+            {% empty %}
+            <p>No lab tests</p>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePrescription" aria-expanded="false" aria-controls="collapsePrescription">
+          Prescription
+        </a>
+        <button type="button" class="btn btn-primary pull-right" data-bs-toggle="collapse" data-bs-target="#collapsePrescription" aria-expanded="false" aria-controls="collapsePrescription">Add Prescription</button>
+      </h4>
+    </div>
+
+    <div id="collapsePrescription" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <form action="{% url 'doctor:add_prescription' appointment.appointment_id %}" method="POST">
+            {% csrf_token %}
+            <textarea class="form-control mb-3" name="medications" placeholder="Medications"></textarea>
+            <br>
+            <button type="submit" class="btn btn-primary btn-sm">Save <i class="fas fa-save ms-2"></i></button>
+        </form>
+      </div>
+    </div>
+    
+    {% comment %} <div class="panel-heading">Panel heading without title</div> {% endcomment %}
+          <div class="panel-body">
+          {% for p in prescriptions %}
+            <div class="shadow p-3 rounded-4 mb-3">
+                <p><span class="fw-semibold text-dark">Medications:</span> {{p.medications}}</p>
+                <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrescription1" aria-expanded="false" aria-controls="collapsePrescription1">Edit <i class="fas fa-edit ms-2"></i></button>
+                
+                <div class="collapse mt-3" id="collapsePrescription1">
+                    <div class="border p-3 rounded-4">
+                        <form action="{% url 'doctor:edit_prescription' appointment.appointment_id p.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" class="form-control mb-3" name="medications" value="{{p.medications}}" placeholder="Medications" />
+                            <button type="submit" class="btn btn-primary btn-sm">Save Changes <i class="fas fa-save ms-2"></i></button>
+                           </form>
+                    </div>
+                </div>
+            </div>
+             <hr>
+            {% empty %}
+            <p>No Prescriptions</p>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+{% endblock %}

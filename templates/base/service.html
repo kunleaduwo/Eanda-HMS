@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+ <br>
+<br>
+
+<!-- Service Start -->
+        <div class="container-xxl py-6">
+            <div class="container">
+                <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+                <div class="section-heading text-center">
+                    <div>
+                    <h2 class="text-center"><strong>We provide health care solutions to our patients.</strong></h2>
+                    </div>
+                    <br>
+
+                </div>
+                <div class="row g-4">
+                    {% for s in serve %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item rounded h-100">
+                            <div class="d-flex justify-content-between">
+                                <div class="service-icon">
+                                    <i class="fa fa-user-tie fa-2x"></i>
+                                </div>
+                                <a class="service-btn" href="">
+                                    <i class="fa fa-link fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="p-5">
+                                <h5 class="mb-3"><a href="{% url 'base:service_detail' s.id %}">{{s.name}}</a></h5>
+                                <span>{{s.description|truncatechars:200}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+  
+
+
+
+{% endblock %}

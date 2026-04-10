@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<section class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+              
+                <div class="col-12 col-lg-7 p-4 rounded-3 bg-white">
+                    <br>
+                    <h1 class="display-4 fw-bold mt-5">
+                        <span class="text-primary"><b>{{service.name}}</b></span>
+                    </h1>
+                    <p class="fs-4 mt-4">{{service.description}}</p>
+                    <br />
+                    
+                </div>
+                <div class="col-12 col-lg-5">
+                    <img class="img-fluid mt-4" style="width: 100%; height: 350px; object-fit: cover; border-radius: 10px" src="{{service.image.url}}" alt="" />
+                </div>
+            </div>
+        </section>
+
+<br>
+<br>
+
+
+        <section class="container">
+            <div>
+                <h2 class="h-bold">Available Doctors</h2>
+            </div>
+        <table class="table">
+            
+                <thead>
+                    <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col" class="text-center">Time Available</th>
+                    {% comment %} <th scope="col">Cost</th> {% endcomment %}
+                    <th scope="col" class="text-center">Book Appointment</th>
+                    </tr>
+                    
+                </thead>
+                
+                {% for d in service.available_doctors.all %}
+                <tbody>
+                    <tr>
+                    <th scope="row"><a href="">
+                        <img src="{{d.image.url}}" alt="Doctor" style="width: 30px; height: 30px; object-fit: cover" class="card-img-top" />
+                    </a></th>
+                     
+                    <td>Dr. {{d.full_name}}</td>
+                    <td class="text-center">{{d.next_available_appointment_date}}</td>
+                    {% comment %} <td>₦{{service.cost}}</td> {% endcomment %}
+                    <td class="text-center"><strong><a href="{% url 'base:book_appointment' service.id d.id %}">Book now</a></strong></td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+        </table>
+
+        </section>
+
+
+
+
+
+
+
+
+        {% comment %} <section class="container">
+            <div class="">
+                <h2 class="">Available Doctos</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, reiciendis.</p>
+            </div>
+            <div class="">
+                <div class="p-1 mb-4 shadow d-flex align-items-center">
+                    <a href="course-detail.html">
+                        <img src="https://themeperch.net/doctoraltheme/wp-content/uploads/2016/08/dr06-2-150x150.jpg" alt="course" style="width: 70px; height: 70px; object-fit: cover" class="card-img-top" />
+                    </a>
+                    <div class="card-body">
+                        <div class="mt-2 d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1 text-truncate-line-2"><a href="course-detail.html" class="text-inherit text-dark text-decoration-none">Dr. Destiny Franks</a></h5>
+                                <div class="d-flex gap-2">
+                                    <p class="fw-semibold mt-0 mb-0">Time Available:</p>
+                                    <p class="mt-0 mb-0">7th July, 2024</p>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <p class="fw-semibold mt-0 mb-0">Price:</p>
+                                    <p class="mt-0 mb-0">$25</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <a href="book-appointment.html" class="btn btn-primary me-4">Book Now <i class="fas fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+               
+            </div>
+        </section> {% endcomment %}
+<br>
+<br>
+<br>
+<br>
+
+
+
+{% endblock %}

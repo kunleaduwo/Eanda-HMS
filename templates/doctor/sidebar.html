@@ -1,0 +1,50 @@
+{% load static %}
+<br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+             
+<div class="col-lg-3 col-md-4 col-12">
+                <nav class="navbar navbar-expand-md shadow-sm mb-4 mb-lg-0 sidenav border rounded">
+                    
+
+                    <div class="collapse navbar-collapse p-3" id="sidenav">
+                        <div class="navbar-nav flex-column">
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                {% if request.user.doctor.image %} 
+                                <img src="{{request.user.doctor.image.url}}" alt="avatar" class="rounded-circle avatar-xl" style="width: 120px; height: 120px; object-fit: cover" />
+                                {% endif %}
+                                <div class="ms-3">
+                                    <br>
+                                    <h5 class="mb-0 fw-bold">Dr. {{request.user.doctor.full_name}}</h5>
+                                    <p class="mb-1 fs-6">Doctor ID: {{request.user.doctor.id}}</p>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled ms-n2 mb-4">
+                                <li class="nav-item">
+                                    <a class="dropdown-item nav-link" href="{% url 'doctor:dashboard' %}"><i class="bi bi-grid-fill"></i> Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item nav-link" href="{% url 'doctor:appointments' %}"><i class="fas fa-calendar"></i> Appointment</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="dropdown-item nav-link" href="{% url 'doctor:payments' %}"><i class="fas fa-credit-card"></i> Payments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item nav-link" href="{% url 'doctor:notifications' %}"><i class="fas fa-bell"></i> Notification</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'doctor:profile' %}"> <i class="fas fa-edit"></i> Edit Profile </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'userauths:sign-out' %}"> <i class="fas fa-sign-out-alt"></i> Sign Out </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
