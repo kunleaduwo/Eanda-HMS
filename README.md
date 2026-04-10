@@ -40,10 +40,11 @@ and ensures better patient care and service delivery.
 <ul>
   <li>Python</li>
   <li>Django</li>
+  <li>PostgreSQL</li>
+  <li>Django Rest Framework</li>
+  <li>JavaScript</li>
   <li>HTML</li>
   <li>CSS</li>
-  <li>JavaScript</li>
-  <li>PostgreSQL</li>
 </ul>
 
 <hr>
