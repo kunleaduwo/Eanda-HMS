@@ -1,4 +1,4 @@
-# Eanda-HMS
+# Eanda-SHS
 A Smart Hospital System
 
 <hr>
